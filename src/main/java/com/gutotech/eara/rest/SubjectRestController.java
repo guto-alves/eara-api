@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gutotech.eara.model.Subject;
 import com.gutotech.eara.model.Topic;
 import com.gutotech.eara.service.SubjectService;
+import com.gutotech.eara.service.TopicService;
 
 @RestController
 @RequestMapping("subjects")
@@ -23,6 +24,9 @@ public class SubjectRestController {
 
 	@Autowired
 	private SubjectService subjectService;
+
+	@Autowired
+	private TopicService topicService;
 
 	@GetMapping
 	public ResponseEntity<List<Subject>> getSubjects() {
@@ -46,10 +50,8 @@ public class SubjectRestController {
 	@PostMapping("{id}/topics")
 	public ResponseEntity<Topic> addTopic(@PathVariable Long id, @RequestBody Topic topic) {
 		Subject subject = subjectService.findById(id);
-		subject.getTopics().add(topic);
 		topic.setSubject(subject);
-		subjectService.save(subject);
-		return ResponseEntity.ok(topic);
+		return ResponseEntity.ok(topicService.save(topic));
 	}
 
 }

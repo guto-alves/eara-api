@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.gutotech.eara.model.Project;
 import com.gutotech.eara.model.StudySession;
 import com.gutotech.eara.model.Subject;
 import com.gutotech.eara.model.Topic;
 import com.gutotech.eara.model.User;
+import com.gutotech.eara.service.ProjectService;
 import com.gutotech.eara.service.SubjectService;
 import com.gutotech.eara.service.TopicService;
 import com.gutotech.eara.service.UserService;
@@ -23,6 +25,9 @@ public class LoadDatabase implements CommandLineRunner {
 
 	@Autowired
 	private TopicService topicService;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	@Autowired
 	private UserService userService;
@@ -32,10 +37,13 @@ public class LoadDatabase implements CommandLineRunner {
 		User user = new User("Gustavo Alves", "gustavoalvesb.dealmeida@gmail.com", "123456");
 		userService.save(user);
 
-		Subject subject1 = new Subject("Matematica");
-		Subject subject2 = new Subject("Fisica");
-		Subject subject3 = new Subject("Biologia");
-		Subject subject4 = new Subject("Historia");
+		Project project = new Project("ENEM");
+		projectService.save(project);
+		
+		Subject subject1 = new Subject("Matematica", project);
+		Subject subject2 = new Subject("Fisica", project);
+		Subject subject3 = new Subject("Biologia", project);
+		Subject subject4 = new Subject("Historia", project);
 
 		subjectService.saveAll(List.of(subject1, subject2, subject3, subject4));
 

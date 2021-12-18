@@ -13,7 +13,7 @@ public class SubjectService {
 
 	@Autowired
 	private SubjectRepository repository;
-	
+
 	public Subject findById(Long id) {
 		return repository.findById(id).orElse(null);
 	}

@@ -47,6 +47,7 @@ public class SubjectRestController {
 	public ResponseEntity<Topic> addTopic(@PathVariable Long id, @RequestBody Topic topic) {
 		Subject subject = subjectService.findById(id);
 		subject.getTopics().add(topic);
+		topic.setSubject(subject);
 		subjectService.save(subject);
 		return ResponseEntity.ok(topic);
 	}

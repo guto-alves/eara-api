@@ -45,10 +45,9 @@ public class LoadDatabase implements CommandLineRunner {
 		subject1.getTopics().addAll(List.of(t1, t2, t3));
 		subjectService.save(subject1);
 
-		StudySession session1 = new StudySession(null, new Date(), new Date(new Date().getTime() + 100000), 10, 2, null,
-				t1);
-		StudySession session2 = new StudySession(null, new Date(), new Date(new Date().getTime() + 100000), 5, 0, null,
-				t1);
+		StudySession session1 = new StudySession(null, new Date(), "00:30", 10, 2, null, t1);
+		StudySession session2 = new StudySession(null, new Date(), "01:00", 5, 0, null, t1);
+
 		t1.getSessions().addAll(List.of(session1, session2));
 		topicService.save(t1);
 

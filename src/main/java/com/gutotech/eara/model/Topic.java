@@ -51,15 +51,28 @@ public class Topic {
 				.mapToInt(StudySession::getRightAnswers)
 				.sum();
 	}
-	
+
 	public int getTotalWrongAnswers() {
 		return sessions.stream()
 				.mapToInt(StudySession::getWrongAnswers)
 				.sum();
 	}
-	
+
 	public int getTotalSessions() {
 		return sessions.size();
+	}
+	
+	public String getTotalTime() {
+		 int totalMinutes = sessions.stream()
+				.mapToInt((session) -> 
+					Integer.parseInt(session.getTotalTime().split(":")[0])  * 60 +  Integer.parseInt(session.getTotalTime().split(":")[1]))
+				.sum();
+		 if (totalMinutes > 0) {
+			 int totalHours = totalMinutes / 60;
+			 return String.format("%02d:%02d", totalHours, totalMinutes - totalHours * 60);
+		 } 
+		 
+		 return "00:00";
 	}
 	
 }

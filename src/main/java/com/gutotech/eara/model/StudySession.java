@@ -29,11 +29,10 @@ public class StudySession {
 	private Long id;
 
 	@CreationTimestamp
-	@Column(name = "start_time")
-	private Date startTime;
+	@Column(name = "creation_date")
+	private Date creationDate;
 
-	@Column(name = "end_time")
-	private Date endTime;
+	private String totalTime;
 
 	@Column(name = "right_answers")
 	private int rightAnswers;

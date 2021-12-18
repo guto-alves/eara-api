@@ -22,12 +22,15 @@ public class TopicDTO {
 
 	private String annotation;
 
+	private String totalTime;
+
 	private List<StudySession> sessions = new ArrayList<>();
 
 	public TopicDTO(Topic topic) {
 		this.id = topic.getId();
 		this.name = topic.getName();
 		this.annotation = topic.getAnnotation();
+		this.totalTime = topic.getTotalTime();
 		this.sessions = topic.getSessions();
 
 	}
@@ -39,7 +42,7 @@ public class TopicDTO {
 	public int getTotalWrongAnswers() {
 		return sessions.stream().mapToInt(StudySession::getWrongAnswers).sum();
 	}
-	
+
 	public int getTotalSessions() {
 		return sessions.size();
 	}

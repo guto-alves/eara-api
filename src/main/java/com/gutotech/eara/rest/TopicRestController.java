@@ -33,7 +33,7 @@ public class TopicRestController {
 	}
 
 	@GetMapping("{id}/sessions")
-	public ResponseEntity<List<StudySession>> getStudySession(@PathVariable Long id) {
+	public ResponseEntity<List<StudySession>> getStudySessions(@PathVariable Long id) {
 		return ResponseEntity.ok(topicService.findById(id).getSessions());
 	}
 
@@ -43,5 +43,5 @@ public class TopicRestController {
 		session.setTopic(topic);
 		return ResponseEntity.ok(sessionService.save(session));
 	}
-	
+
 }

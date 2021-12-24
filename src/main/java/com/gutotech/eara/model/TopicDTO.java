@@ -32,7 +32,6 @@ public class TopicDTO {
 		this.annotation = topic.getAnnotation();
 		this.totalTime = topic.getTotalTime();
 		this.sessions = topic.getSessions();
-
 	}
 
 	public int getTotalRightAnswers() {

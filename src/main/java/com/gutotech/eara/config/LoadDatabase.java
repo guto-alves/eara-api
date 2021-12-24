@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.gutotech.eara.model.Project;
 import com.gutotech.eara.model.StudySession;
@@ -32,10 +31,7 @@ public class LoadDatabase implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
+	
 	@Override
 	public void run(String... args) throws Exception {
 		User user = new User("Gustavo Alves", "gustavoalvesb.dealmeida@gmail.com", "123456");

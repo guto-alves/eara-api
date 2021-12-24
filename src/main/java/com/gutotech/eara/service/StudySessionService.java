@@ -1,8 +1,10 @@
 package com.gutotech.eara.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.gutotech.eara.model.StudySession;
@@ -15,7 +17,18 @@ public class StudySessionService {
 	private StudySessionRepository repository;
 
 	public StudySession findById(Long id) {
-		return repository.findById(id).orElse(null);
+		Optional<StudySession> optional = repository.findById(id);
+
+		if (optional.isPresent()) {
+			StudySession studySession = optional.get();
+
+			if (studySession.getTopic().getSubject().getProject().getUser().getEmail()
+					.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+				return studySession;
+			}
+		}
+
+		throw new IllegalAccessError("Tópico não encontrada.");
 	}
 
 	public List<StudySession> findAll() {

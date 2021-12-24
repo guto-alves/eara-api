@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +21,19 @@ public class StudySessionRestController {
 	private StudySessionService sessionService;
 
 	@GetMapping("{id}")
-	public ResponseEntity<StudySession> getTopic(@PathVariable Long id) {
+	public ResponseEntity<StudySession> getStudySession(@PathVariable Long id) {
 		return ResponseEntity.ok(sessionService.findById(id));
+	}
+
+	@PutMapping("{id}")
+	public ResponseEntity<StudySession> updateTopicStudySession(@RequestBody StudySession updatedSession,
+			@PathVariable Long id) {
+		StudySession session = sessionService.findById(id);
+		session.setRightAnswers(updatedSession.getRightAnswers());
+		session.setWrongAnswers(updatedSession.getWrongAnswers());
+		session.setTotalTime(updatedSession.getTotalTime());
+		session.setObs(updatedSession.getObs());
+		return ResponseEntity.ok(sessionService.save(session));
 	}
 
 	@DeleteMapping("{id}/sessions")

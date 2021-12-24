@@ -12,8 +12,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,7 +41,6 @@ public class StudySession {
 
 	private String obs;
 
-	@JsonIgnore
 	@ManyToOne
 	private Topic topic;
 

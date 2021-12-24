@@ -39,8 +39,8 @@ public class StudySessionService {
 		return repository.save(studySession);
 	}
 
-	public void delete(StudySession session) {
-		repository.delete(session);
+	public void deleteById(Long id) {
+		repository.deleteById(id);
 	}
 
 }

@@ -36,9 +36,9 @@ public class StudySessionRestController {
 		return ResponseEntity.ok(sessionService.save(session));
 	}
 
-	@DeleteMapping("{id}/sessions")
-	public ResponseEntity<StudySession> addTopicStudySession(StudySession session) {
-		sessionService.delete(session);
+	@DeleteMapping("{id}")
+	public ResponseEntity<StudySession> deleteStudySession(@PathVariable Long id) {
+		sessionService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 

@@ -3,6 +3,8 @@ package com.gutotech.eara.rest;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class SubjectRestController {
 	private TopicService topicService;
 
 	@PostMapping
-	public ResponseEntity<Subject> addSubject(@RequestBody Subject subject) {
+	public ResponseEntity<Subject> addSubject(@Valid @RequestBody Subject subject) {
 		subject = subjectService.save(subject);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
@@ -45,7 +47,7 @@ public class SubjectRestController {
 	}
 
 	@PostMapping("{id}/topics")
-	public ResponseEntity<Topic> addTopic(@RequestBody Topic topic, @PathVariable Long id) {
+	public ResponseEntity<Topic> addTopic(@Valid @RequestBody Topic topic, @PathVariable Long id) {
 		Subject subject = subjectService.findById(id);
 		topic.setSubject(subject);
 		return ResponseEntity.ok(topicService.save(topic));

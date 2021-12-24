@@ -13,7 +13,7 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -24,8 +24,11 @@ public class UserService {
 	public User findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
-	
+
 	public User register(User user) {
+		if (findByEmail(user.getEmail()) != null) {
+			throw new IllegalArgumentException("E-mail já existe");
+		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return repository.save(user);
 	}
@@ -37,5 +40,5 @@ public class UserService {
 	public User findCurrentUser() {
 		return repository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
-	
+
 }

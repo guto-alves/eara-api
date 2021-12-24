@@ -3,6 +3,7 @@ package com.gutotech.eara.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,16 +35,17 @@ public class User {
 	private Long id;
 
 	@NonNull
-	@NotBlank
+	@NotBlank(message = "Nome deve ser informado")
 	private String name;
 
 	@NonNull
-	@Email
+	@Email(message = "Email deve ser um endereço de e-mail bem formado")
+	@Column(unique = true)
 	private String email;
 
 	@NonNull
 	@NotBlank
-	@Size(min = 4)
+	@Size(min = 4, message = "Senha deve ter no mínino 4 caracters")
 	private String password;
 
 	@JsonIgnore

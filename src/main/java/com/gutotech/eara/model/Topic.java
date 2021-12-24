@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,6 +34,7 @@ public class Topic {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank(message = "Nome deve ser informado")
 	@NonNull
 	private String name;
 
@@ -49,32 +51,28 @@ public class Topic {
 	private List<StudySession> sessions = new ArrayList<>();
 
 	public int getTotalRightAnswers() {
-		return sessions.stream()
-				.mapToInt(StudySession::getRightAnswers)
-				.sum();
+		return sessions.stream().mapToInt(StudySession::getRightAnswers).sum();
 	}
 
 	public int getTotalWrongAnswers() {
-		return sessions.stream()
-				.mapToInt(StudySession::getWrongAnswers)
-				.sum();
+		return sessions.stream().mapToInt(StudySession::getWrongAnswers).sum();
 	}
 
 	public int getTotalSessions() {
 		return sessions.size();
 	}
-	
+
 	public String getTotalTime() {
-		 int totalMinutes = sessions.stream()
-				.mapToInt((session) -> 
-					Integer.parseInt(session.getTotalTime().split(":")[0])  * 60 +  Integer.parseInt(session.getTotalTime().split(":")[1]))
+		int totalMinutes = sessions.stream()
+				.mapToInt((session) -> Integer.parseInt(session.getTotalTime().split(":")[0]) * 60
+						+ Integer.parseInt(session.getTotalTime().split(":")[1]))
 				.sum();
-		 if (totalMinutes > 0) {
-			 int totalHours = totalMinutes / 60;
-			 return String.format("%02d:%02d", totalHours, totalMinutes - totalHours * 60);
-		 } 
-		 
-		 return "00:00";
+		if (totalMinutes > 0) {
+			int totalHours = totalMinutes / 60;
+			return String.format("%02d:%02d", totalHours, totalMinutes - totalHours * 60);
+		}
+
+		return "00:00";
 	}
-	
+
 }

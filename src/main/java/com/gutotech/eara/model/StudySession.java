@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -41,6 +42,7 @@ public class StudySession {
 
 	private String obs;
 
+	@NotNull(message = "Tópico deve ser informado")
 	@ManyToOne
 	private Topic topic;
 

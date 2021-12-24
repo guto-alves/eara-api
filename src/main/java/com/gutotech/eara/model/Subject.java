@@ -31,14 +31,14 @@ public class Subject {
 	private Long id;
 
 	@NonNull
-	@NotNull
+	@NotNull(message = "Nome deve ser informado")
 	private String name;
 
 	@OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
 	private List<Topic> topics = new ArrayList<>();
 
 	@NonNull
-	@NotNull
+	@NotNull(message = "Projeto deve ser informado")
 	@ManyToOne
 	private Project project;
 

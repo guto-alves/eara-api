@@ -38,17 +38,18 @@ public class Project {
 	private Long id;
 
 	@NonNull
-	@NotBlank
-	@Size(min = 2, max = 60)
+	@NotBlank(message = "Nome deve ser informado")
+	@Size(min = 2, max = 60, message = "O tamanho do Nome deve ser entre 2 e 60")
 	@Column(length = 60)
 	private String name;
 
-	@Size(max = 255)
+	@Size(max = 255, message = "O tamanho da Descrição deve ser no máximo até 60")
 	private String description;
 
 	@NotNull
 	private Date accessDate = new Date();
-	
+
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 

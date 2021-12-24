@@ -28,15 +28,12 @@ public class SubjectRestController {
 	@Autowired
 	private TopicService topicService;
 
-	@GetMapping
-	public ResponseEntity<List<Subject>> getSubjects() {
-		return ResponseEntity.ok(subjectService.findAll());
-	}
-
 	@PostMapping
 	public ResponseEntity<Subject> addSubject(@RequestBody Subject subject) {
 		subject = subjectService.save(subject);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(subject.getId())
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(subject.getId())
 				.toUri();
 		return ResponseEntity.created(uri).body(subject);
 	}
@@ -48,7 +45,7 @@ public class SubjectRestController {
 	}
 
 	@PostMapping("{id}/topics")
-	public ResponseEntity<Topic> addTopic(@PathVariable Long id, @RequestBody Topic topic) {
+	public ResponseEntity<Topic> addTopic(@RequestBody Topic topic, @PathVariable Long id) {
 		Subject subject = subjectService.findById(id);
 		topic.setSubject(subject);
 		return ResponseEntity.ok(topicService.save(topic));

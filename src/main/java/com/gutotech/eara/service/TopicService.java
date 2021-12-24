@@ -1,8 +1,10 @@
 package com.gutotech.eara.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.gutotech.eara.model.Topic;
@@ -15,11 +17,18 @@ public class TopicService {
 	private TopicRepository repository;
 
 	public Topic findById(Long id) {
-		return repository.findById(id).orElse(null);
-	}
+		Optional<Topic> optional = repository.findById(id);
 
-	public List<Topic> findAll() {
-		return repository.findAll();
+		if (optional.isPresent()) {
+			Topic topic = optional.get();
+
+			if (topic.getSubject().getProject().getUser().getEmail()
+					.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+				return topic;
+			}
+		}
+
+		throw new IllegalAccessError("Tópico não encontrada.");
 	}
 
 	public Topic save(Topic Topic) {

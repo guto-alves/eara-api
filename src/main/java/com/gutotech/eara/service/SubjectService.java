@@ -1,8 +1,10 @@
 package com.gutotech.eara.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.gutotech.eara.model.Subject;
@@ -15,11 +17,18 @@ public class SubjectService {
 	private SubjectRepository repository;
 
 	public Subject findById(Long id) {
-		return repository.findById(id).orElse(null);
-	}
+		Optional<Subject> optional = repository.findById(id);
 
-	public List<Subject> findAll() {
-		return repository.findAll();
+		if (optional.isPresent()) {
+			Subject subject = optional.get();
+
+			if (subject.getProject().getUser().getEmail()
+					.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+				return subject;
+			}
+		}
+
+		throw new IllegalAccessError("Disiciplina não encontrada.");
 	}
 
 	public Subject save(Subject subject) {

@@ -32,6 +32,7 @@ public class StudySession {
 	@Column(name = "creation_date")
 	private Date creationDate;
 
+	@Column(name = "total_time")
 	private String totalTime;
 
 	@Column(name = "right_answers")

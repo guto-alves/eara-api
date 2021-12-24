@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gutotech.eara.model.Project;
 import com.gutotech.eara.model.Subject;
 import com.gutotech.eara.service.ProjectService;
+import com.gutotech.eara.service.UserService;
 
 @RestController
 @RequestMapping("projects")
@@ -28,6 +29,9 @@ public class ProjectRestController {
 
 	@Autowired
 	private ProjectService projectService;
+
+	@Autowired
+	private UserService userService;
 
 	@GetMapping
 	public ResponseEntity<List<Project>> getProject() {
@@ -47,6 +51,7 @@ public class ProjectRestController {
 	@PostMapping
 	public ResponseEntity<Project> addProject(@Valid @RequestBody Project project) {
 		project.setAccessDate(new Date());
+		project.setUser(userService.findCurrentUser());
 		project = projectService.save(project);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest() //
@@ -59,6 +64,7 @@ public class ProjectRestController {
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+		projectService.findById(id);
 		projectService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

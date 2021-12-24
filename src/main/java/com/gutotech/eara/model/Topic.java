@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,6 +45,7 @@ public class Topic {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
+	@OrderBy("id ASC")
 	private List<StudySession> sessions = new ArrayList<>();
 
 	public int getTotalRightAnswers() {

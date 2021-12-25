@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import com.gutotech.eara.model.Project;
 import com.gutotech.eara.model.StudySession;
@@ -17,6 +18,7 @@ import com.gutotech.eara.service.SubjectService;
 import com.gutotech.eara.service.TopicService;
 import com.gutotech.eara.service.UserService;
 
+@Profile("dev")
 @Configuration
 public class LoadDatabase implements CommandLineRunner {
 
@@ -31,7 +33,7 @@ public class LoadDatabase implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Override
 	public void run(String... args) throws Exception {
 		User user = new User("Gustavo Alves", "gustavoalvesb.dealmeida@gmail.com", "123456");
@@ -43,7 +45,7 @@ public class LoadDatabase implements CommandLineRunner {
 		Project project = new Project("ENEM");
 		project.setUser(user);
 		projectService.save(project);
-		
+
 		Project project2 = new Project("Faculdade");
 		project2.setUser(user2);
 		projectService.save(project2);

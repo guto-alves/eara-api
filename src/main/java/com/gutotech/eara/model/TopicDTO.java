@@ -25,6 +25,8 @@ public class TopicDTO {
 	private String totalTime;
 
 	private List<StudySession> sessions = new ArrayList<>();
+	
+	private Subject subject;
 
 	public TopicDTO(Topic topic) {
 		this.id = topic.getId();
@@ -32,6 +34,7 @@ public class TopicDTO {
 		this.annotation = topic.getAnnotation();
 		this.totalTime = topic.getTotalTime();
 		this.sessions = topic.getSessions();
+		this.subject = topic.getSubject();
 	}
 
 	public int getTotalRightAnswers() {

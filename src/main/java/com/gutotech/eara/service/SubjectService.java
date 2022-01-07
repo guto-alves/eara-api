@@ -32,6 +32,11 @@ public class SubjectService {
 	}
 
 	public Subject save(Subject subject) {
+		if (repository.exists(subject.getName(), subject.getProject())) {
+			throw new IllegalArgumentException(
+					"Já existe uma disciplina com o nome " + subject.getName() + " nesse projeto");
+		}
+
 		return repository.save(subject);
 	}
 

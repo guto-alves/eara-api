@@ -18,6 +18,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 
 	public User findById(Long id) {
+		// TODO: throws not find exception
 		return repository.findById(id).orElse(null);
 	}
 
@@ -34,6 +35,11 @@ public class UserService {
 	}
 
 	public User save(User user) {
+		User user2 = findByEmail(user.getEmail());
+		if (user2 != null && !user.getId().equals(user2.getId())) {
+			throw new IllegalArgumentException(
+					"E-mail para o qual você está tentando mudar já está associado a outra conta");
+		}
 		return repository.save(user);
 	}
 

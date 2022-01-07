@@ -31,12 +31,17 @@ public class TopicService {
 		throw new IllegalAccessError("Tópico não encontrada.");
 	}
 
-	public Topic save(Topic Topic) {
-		return repository.save(Topic);
+	public Topic save(Topic topic) {
+		if (repository.exists(topic.getName(), topic.getSubject())) {
+			throw new IllegalArgumentException(
+					"Já existe um tópico com o nome " + topic.getName() + " nessa disciplina");
+		}
+
+		return repository.save(topic);
 	}
 
-	public List<Topic> saveAll(List<Topic> Topics) {
-		return repository.saveAll(Topics);
+	public List<Topic> saveAll(List<Topic> topics) {
+		return repository.saveAll(topics);
 	}
 
 }

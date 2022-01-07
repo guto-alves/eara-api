@@ -40,7 +40,7 @@ public class Project {
 	@NonNull
 	@NotBlank(message = "Nome deve ser informado")
 	@Size(min = 2, max = 60, message = "O tamanho do Nome deve ser entre 2 e 60")
-	@Column(length = 60)
+	@Column(length = 60, nullable = false)
 	private String name;
 
 	@Size(max = 255, message = "O tamanho da Descrição deve ser no máximo até 60")

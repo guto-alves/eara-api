@@ -44,7 +44,7 @@ public class ProjectRestController {
 	public ResponseEntity<Project> getProject(@PathVariable Long id) {
 		Project project = projectService.findById(id);
 		project.setAccessDate(new Date());
-		projectService.save(project);
+		projectService.update(project);
 		return ResponseEntity.ok(project);
 	}
 

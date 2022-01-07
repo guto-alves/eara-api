@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,8 +35,9 @@ public class Topic {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "Nome deve ser informado")
 	@NonNull
+	@NotBlank(message = "Nome deve ser informado")
+	@Column(length = 60, nullable = false)
 	private String name;
 
 	private String annotation;

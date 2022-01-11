@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.gutotech.eara.model.PasswordForm;
 import com.gutotech.eara.model.User;
 import com.gutotech.eara.model.UserDTO;
 import com.gutotech.eara.service.UserService;
@@ -54,4 +55,9 @@ public class UserRestController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PostMapping("change-password")
+	public ResponseEntity<User> changePassword(@Valid @RequestBody PasswordForm passwordForm) {
+		userService.changePassword(passwordForm);
+		return ResponseEntity.noContent().build();
+	}
 }

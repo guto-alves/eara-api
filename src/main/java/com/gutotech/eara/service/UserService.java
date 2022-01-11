@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.gutotech.eara.model.PasswordForm;
 import com.gutotech.eara.model.User;
 import com.gutotech.eara.repository.UserRepository;
 
@@ -45,6 +46,21 @@ public class UserService {
 
 	public User findCurrentUser() {
 		return repository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+	}
+
+	public void changePassword(PasswordForm passwordForm) {
+		User currentUser = findCurrentUser();
+
+		if (!passwordForm.getNewPassword().equals(passwordForm.getConfirmPassword())) {
+			throw new IllegalArgumentException("Senhas não correspondem");
+		}
+
+		if (!passwordEncoder.matches(passwordForm.getPassword(), currentUser.getPassword())) {
+			throw new IllegalArgumentException("A senha atual inválida");
+		}
+
+		currentUser.setPassword(passwordEncoder.encode(passwordForm.getNewPassword()));
+		save(currentUser);
 	}
 
 }

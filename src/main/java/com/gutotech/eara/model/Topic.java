@@ -44,7 +44,7 @@ public class Topic {
 
 	@NonNull
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Subject subject;
 
 	@JsonIgnore

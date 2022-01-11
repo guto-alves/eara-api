@@ -50,13 +50,13 @@ public class Project {
 	private Date accessDate = new Date();
 
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private User user;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
 	private List<Subject> subjects = new ArrayList<>();
 
-	private String color;
+	private String color = "#0d6efd";
 
 }

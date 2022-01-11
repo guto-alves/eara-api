@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +45,7 @@ public class ProjectRestController {
 	public ResponseEntity<Project> getProject(@PathVariable Long id) {
 		Project project = projectService.findById(id);
 		project.setAccessDate(new Date());
-		projectService.update(project);
+		projectService.save(project);
 		return ResponseEntity.ok(project);
 	}
 
@@ -52,7 +53,7 @@ public class ProjectRestController {
 	public ResponseEntity<Project> addProject(@Valid @RequestBody Project project) {
 		project.setAccessDate(new Date());
 		project.setUser(userService.findCurrentUser());
-		project = projectService.save(project);
+		project = projectService.create(project);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest() //
 				.path("/{id}") //
@@ -60,6 +61,17 @@ public class ProjectRestController {
 				.toUri();
 
 		return ResponseEntity.created(uri).body(project);
+	}
+
+	@PutMapping("{id}")
+	public ResponseEntity<Void> updateProject(@Valid @RequestBody Project updatedProject, @PathVariable Long id) {
+		Project project = projectService.findById(id);
+		project.setName(updatedProject.getName());
+		project.setDescription(updatedProject.getDescription());
+		project.setColor(updatedProject.getColor());
+		projectService.save(project);
+
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("{id}")

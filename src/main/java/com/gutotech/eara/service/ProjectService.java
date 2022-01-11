@@ -33,7 +33,7 @@ public class ProjectService {
 		return repository.findByUser_Email(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 
-	public Project save(Project project) {
+	public Project create(Project project) {
 		if (repository.findByNameAndUser_Email(project.getName(), project.getUser().getEmail()).size() > 0) {
 			throw new IllegalArgumentException("Você já tem um projeto com esse nome");
 		}
@@ -41,7 +41,7 @@ public class ProjectService {
 		return repository.save(project);
 	}
 	
-	public Project update(Project project) {
+	public Project save(Project project) {
 		return repository.save(project);
 	}
 

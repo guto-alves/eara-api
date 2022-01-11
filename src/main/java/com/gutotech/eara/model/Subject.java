@@ -41,7 +41,7 @@ public class Subject {
 
 	@NonNull
 	@NotNull(message = "Projeto deve ser informado")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Project project;
 
 }

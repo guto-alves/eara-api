@@ -40,6 +40,7 @@ public class Topic {
 	@Column(length = 60, nullable = false)
 	private String name;
 
+	@Column(columnDefinition = "TEXT")
 	private String annotation;
 
 	@NonNull

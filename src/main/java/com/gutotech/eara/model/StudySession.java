@@ -40,6 +40,7 @@ public class StudySession {
 	@Column(name = "wrong_answers")
 	private int wrongAnswers;
 
+	@Column(columnDefinition = "TEXT")
 	private String obs;
 
 	@NotNull(message = "Tópico deve ser informado")

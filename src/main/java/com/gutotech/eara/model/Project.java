@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gutotech.eara.model.validation.DarkColor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -55,6 +56,7 @@ public class Project {
 	@OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
 	private List<Subject> subjects = new ArrayList<>();
 
+	@DarkColor
 	private String color = "#0d6efd";
 
 }

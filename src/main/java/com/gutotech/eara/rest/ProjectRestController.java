@@ -53,7 +53,7 @@ public class ProjectRestController {
 	public ResponseEntity<Project> addProject(@Valid @RequestBody Project project) {
 		project.setAccessDate(new Date());
 		project.setUser(userService.findCurrentUser());
-		project = projectService.create(project);
+		project = projectService.save(project);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest() //
 				.path("/{id}") //

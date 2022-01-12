@@ -33,15 +33,13 @@ public class ProjectService {
 		return repository.findByUser_Email(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 
-	public Project create(Project project) {
-		if (repository.findByNameAndUser_Email(project.getName(), project.getUser().getEmail()).size() > 0) {
+	public Project save(Project project) {
+		Project p = repository.findByNameAndUser_Email(project.getName(), project.getUser().getEmail());
+
+		if (p != null && p.getId() != project.getId()) {
 			throw new IllegalArgumentException("Você já tem um projeto com esse nome");
 		}
-		
-		return repository.save(project);
-	}
-	
-	public Project save(Project project) {
+
 		return repository.save(project);
 	}
 
